@@ -39,7 +39,7 @@ Key objectives include achieving scalability to handle over 500,000 daily jobs, 
 1. Clone the repository:
 
    ```
-   git clone https://github.com/Rupesh4604/distributed-job-scheduler.git
+   git clone https://github.com/Rupesh4604/Distributed-Job-Scheduling-Platform.git
    cd distributed-job-scheduler
    ```
 
