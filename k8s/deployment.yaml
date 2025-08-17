@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-scheduler
+spec:
+  replicas: 2  # Initial replicas
+  selector:
+    matchLabels:
+      app: job-scheduler
+  template:
+    metadata:
+      labels:
+        app: job-scheduler
+    spec:
+      containers:
+      - name: api
+        image: gcr.io/your-project/job-scheduler:latest  # Push to GCP Container Registry
+        ports:
+        - containerPort: 8000
+      - name: worker
+        image: gcr.io/your-project/job-scheduler:latest
+        command: ["celery", "-A", "celery_app", "worker", "--loglevel=info"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest
+        ports:
+        - containerPort: 6379
